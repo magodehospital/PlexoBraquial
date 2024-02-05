@@ -5,16 +5,19 @@ public class TopDownCharacterController : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 7f;
     public float rotationSpeed = 360f; // Degrees per second
+    public float slowMoveSpeed = 5f;
 
     private Rigidbody rb;
     private Vector3 movement;
     private bool isGrounded;
     private Animator animator;
+    private float variableMoveSpeed;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>(); // Get the Animator component
+        variableMoveSpeed = moveSpeed;
     }
 
     void Update()
@@ -56,7 +59,7 @@ public class TopDownCharacterController : MonoBehaviour
         // Move the character
         if (movement.magnitude > 0.1f) // Ensure there is noticeable movement
         {
-            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+            rb.MovePosition(rb.position + movement * variableMoveSpeed * Time.fixedDeltaTime);
 
             // Rotate the character to face the direction of movement
             RotateCharacter();
@@ -82,5 +85,18 @@ public class TopDownCharacterController : MonoBehaviour
         {
             isGrounded = true;
         }
+    }
+
+    void OnTriggerEnter (Collider other)
+    {
+        if (other.gameObject.CompareTag("SlowZone"))
+        {
+            variableMoveSpeed = slowMoveSpeed;
+        }
+    }
+
+    void OnTriggerExit(Collider other) 
+    {
+        variableMoveSpeed = moveSpeed;   
     }
 }
