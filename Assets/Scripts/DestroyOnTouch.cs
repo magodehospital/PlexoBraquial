@@ -1,8 +1,10 @@
 using UnityEngine;
+using System.Collections;
 
 public class DestroyTargetOnTouch : MonoBehaviour
 {
-    public GameObject targetToDestroy; // Assign this in the Inspector
+    public  GameObject targetToDestroy; // Assign this in the Inspector
+    public float delayInSeconds = 1.0f; // Public delay time in seconds
 
     private void OnTriggerEnter(Collider other)
     {
@@ -10,16 +12,20 @@ public class DestroyTargetOnTouch : MonoBehaviour
         // This assumes your player has been assigned the tag "Player" in Unity.
         if (other.CompareTag("Player"))
         {
-            // Destroy the specified target game object
-            if (targetToDestroy != null)
-            {
-                Destroy(targetToDestroy);
-            }
-            else
-            {
-                // If no target is specified, destroy this game object
-                Destroy(gameObject);
-            }
+           // Start the coroutine to activate the game object after a delay
+            StartCoroutine(DelayToDestroy());
+        }
+    }
+
+    IEnumerator DelayToDestroy ()
+    {
+         // Wait for the specified delay
+        yield return new WaitForSeconds(delayInSeconds);
+
+        // Activate the specified game object
+        if (targetToDestroy != null)
+        {
+            Destroy(targetToDestroy);
         }
     }
 }

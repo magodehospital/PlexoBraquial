@@ -29,4 +29,18 @@ public class MensajeEnPantalla : MonoBehaviour
             targetToAppear.SetActive(true);
         }
     }
+
+IEnumerator DisappearAfterDelay()
+    {
+        // Wait for the specified delay
+        yield return new WaitForSeconds(delayInSeconds);
+
+        // Activate the specified game object
+        if (targetToAppear == null)
+        {
+            targetToAppear.SetActive(false);
+           
+        }
+    }
+
 }

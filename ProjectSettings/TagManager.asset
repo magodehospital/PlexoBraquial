@@ -7,6 +7,8 @@ TagManager:
   - Ground
   - WinterJar
   - SlowZone
+  - EnergyCell
+  - Door
   layers:
   - Default
   - TransparentFX

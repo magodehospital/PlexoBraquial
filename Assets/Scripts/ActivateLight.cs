@@ -1,17 +1,27 @@
 using UnityEngine;
+using System.Collections;
 
 public class ActivateLight : MonoBehaviour
 {
-    public Light light; // Reference to the light you want to turn on
+    public Light targetLight; // Renamed from 'light' to 'targetLight'
+    [SerializeField] private float delay = 1f;
 
     private void OnTriggerEnter(Collider other)
+{
+    // Check if the collider belongs to the player and if there is at least 1 EnergyCell
+    if (other.CompareTag("Player") )
     {
-        // Check if the colliding object is the player
-        // This assumes your player has been assigned the tag "Player" in Unity.
-        if (other.CompareTag("Player"))
-        {
-            // Turn on the light
-            light.enabled = true;
-        }
+        StartCoroutine(ActivateLightAfterDelay());
+        
     }
+}
+
+
+    IEnumerator ActivateLightAfterDelay()
+    {
+        yield return new WaitForSeconds(delay);
+        targetLight.enabled = true; // Use the renamed field here
+    }
+
+    
 }

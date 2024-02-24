@@ -29,7 +29,7 @@ public class TopDownCharacterController : MonoBehaviour
 
         // Set the animation
         bool isMoving = movement.magnitude > 0;
-        animator.SetBool("isRunning", isMoving);
+       // animator.SetBool("isRunning", isMoving);
 
         // Check for jump input
         if (Input.GetButtonDown("Jump") && isGrounded)
